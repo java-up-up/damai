@@ -81,13 +81,13 @@
                 <div class="buy">
                   <div class="buy-link-now" @click="nowBuy">立即购买</div>
                   <!--                    <router-link class="buy-link" to="/order/index">不，选座购买</router-link>-->
-<!--                  <div class="subtitle">请您移步手机端购买</div>
-                  <div class="qrcode">
-                    <div class="tip">手机扫码购买更便捷</div>
-                    <div class="J_qrcodeImg"></div>
-                    <div class="buy-link" @click="nowBuy">不，立即购买</div>
+                  <!--                  <div class="subtitle">请您移步手机端购买</div>
+                                    <div class="qrcode">
+                                      <div class="tip">手机扫码购买更便捷</div>
+                                      <div class="J_qrcodeImg"></div>
+                                      <div class="buy-link" @click="nowBuy">不，立即购买</div>
 
-                  </div>-->
+                                    </div>-->
                 </div>
 
               </div>
@@ -184,18 +184,18 @@
           </div>
           <ul class="search__box">
             <li class="search__item" v-for="item in recommendList">
-                <router-link :to="{name:'detial',params:{id:item.id}}" class="link" >
-                  <img :src="item.itemPicture" alt="">
-                  <router-view :key="route.fullpath" />
+              <router-link :to="{name:'detial',params:{id:item.id}}" class="link" >
+                <img :src="item.itemPicture" alt="">
+                <router-view :key="route.fullpath" />
 
-                </router-link>
+              </router-link>
 
               <div class="search_item_info">
-                  <router-link :to="{name:'detial',params:{id:item.id}}"  class="link__title" >
-                    <router-view :key="route.fullpath"/>
-                    {{ item.title }}
+                <router-link :to="{name:'detial',params:{id:item.id}}"  class="link__title" >
+                  <router-view :key="route.fullpath"/>
+                  {{ item.title }}
 
-                  </router-link>
+                </router-link>
                 <div class="search__item__info__venue">{{ item.place }}</div>
                 <div class="search__item__info__venue">{{ formatDateWithWeekday(item.showTime, item.showWeekTime) }}</div>
                 <div class="search__item__info__price">￥<strong>{{ item.minPrice }}</strong> 起</div>
@@ -207,7 +207,7 @@
       </div>
     </div>
 
-   <Footer></Footer>
+    <Footer></Footer>
 
   </div>
 
@@ -257,7 +257,8 @@ function getProgramDetialsList() {
     ticketCategoryVoList.value = detailList.value.ticketCategoryVoList
     countPrice.value=ticketCategoryVoList.value[0].price
     ticketCategoryId.value = ticketCategoryVoList.value[0].id
-    allPrice.value = ''
+    allPrice.value = countPrice.value * num.value; // 初始总价 = 默认单价 × 默认数量（1）
+    // allPrice.value = ''      原始代码
     ticketNeedInfo.value = [{
       name: '限购规则',
       value: detailList.value.purchaseLimitRule,
@@ -306,9 +307,13 @@ function getProgramDetialsList() {
 }
 
 const ticketClick = (item, index) => {
-  actvieIndex.value = index
-  allPrice.value = item.price
-  ticketCategoryId.value = item.id
+  actvieIndex.value = index;
+  countPrice.value = item.price; // 显式更新单价
+  allPrice.value = item.price * num.value; // 总价 = 新单价 × 当前数量
+  ticketCategoryId.value = item.id;
+  // actvieIndex.value = index     原本代码
+  // allPrice.value = item.price      原本代码
+  // ticketCategoryId.value = item.id      原本代码
 }
 const detialClick = (url, index) => {
   menuActive.value = index
@@ -316,7 +321,7 @@ const detialClick = (url, index) => {
 
 }
 const handleChange = (value) => {
- const priceEach= countPrice.value
+  const priceEach= countPrice.value
   allPrice.value = priceEach*value
 
 }

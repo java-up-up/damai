@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.damai.core.RedisKeyManage;
 import com.damai.dto.TicketCategoryAddDto;
 import com.damai.dto.TicketCategoryDto;
+import com.damai.dto.TicketCategoryListByProgramDto;
 import com.damai.entity.TicketCategory;
 import com.damai.mapper.TicketCategoryMapper;
 import com.damai.redis.RedisCache;
@@ -145,5 +146,15 @@ public class TicketCategoryService extends ServiceImpl<TicketCategoryMapper, Tic
         TicketCategoryDetailVo ticketCategoryDetailVo = new TicketCategoryDetailVo();
         BeanUtil.copyProperties(ticketCategory,ticketCategoryDetailVo);
         return ticketCategoryDetailVo;
+    }
+    
+    public List<TicketCategoryDetailVo> selectListByProgram(TicketCategoryListByProgramDto ticketCategoryListByProgramDto) {
+        List<TicketCategory> ticketCategorieList = ticketCategoryMapper.selectList(Wrappers.lambdaQuery(TicketCategory.class)
+                .eq(TicketCategory::getProgramId, ticketCategoryListByProgramDto.getProgramId()));
+        return ticketCategorieList.stream().map(ticketCategory -> {
+            TicketCategoryDetailVo ticketCategoryDetailVo = new TicketCategoryDetailVo();
+            BeanUtil.copyProperties(ticketCategory,ticketCategoryDetailVo);
+            return ticketCategoryDetailVo;
+        }).collect(Collectors.toList());
     }
 }

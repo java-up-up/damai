@@ -1,5 +1,5 @@
 <template>
-<!--订单管理-->
+  <!--订单管理-->
   <Header></Header>
   <div class="red-line"></div>
   <div class="section">
@@ -17,9 +17,9 @@
         </thead>
       </table>
       <div class="orderBox" v-for="(order, index) in orderList" :key="index">
-          <div class="num">订单号: {{order.orderNumber}}</div>
-          <ul>
-            <li>
+        <div class="num">订单号: {{order.orderNumber}}</div>
+        <ul>
+          <li>
             <img :src="order.programItemPicture" alt="">
             <div class="project">
               <div class="title">{{order.programTitle}}</div>
@@ -27,21 +27,22 @@
               <div class="content">演出场馆: {{order.programPlace}}</div>
             </div>
           </li>
-            <li>{{ order.ticketCount }}</li>
-            <li><div class="price">￥ {{ order.orderPrice }}</div><div class="money">(含运费￥0.00)</div></li>
-            <li>
-              <div class="orderStatus">{{ getOrderStatus(order.orderStatus) }}</div>
-              <router-link class=" link" :to="{name:'orderDetail',params:{orderNumber:order.orderNumber}}"  >
-                订单详情
-              </router-link>
-            </li>
-            <li>
-              <button  class="orderDetial" v-show="order.orderStatus == 1" @click="cancelOrder(order.orderNumber)">取消订单</button>
-            </li>
-          </ul>
-          </div>
+          <li>{{ order.ticketCount }}</li>
+          <li><div class="price">￥ {{ order.orderPrice }}</div><div class="money">(含运费￥0.00)</div></li>
+          <li>
+            <div class="orderStatus">{{ getOrderStatus(order.orderStatus) }}</div>
+            <router-link class=" link" :to="{name:'orderDetail',params:{orderNumber:order.orderNumber}}"  >
+              订单详情
+            </router-link>
+          </li>
+          <li>
+            <button  class="orderDetial" v-show="order.orderStatus == 1" @click="cancelOrder(order.orderNumber)">取消订单</button>
+            <button  class="orderDetial" v-show="order.orderStatus == 1" @click="payOrder(order.orderNumber)">支付订单</button>
+          </li>
+        </ul>
+      </div>
 
-  </div>
+    </div>
   </div>
   <Footer class="foot"></Footer>
 
@@ -54,12 +55,12 @@ import {ref, onMounted, getCurrentInstance, nextTick, reactive} from 'vue'
 import MenuSideBar from '../../components/menuSidebar/index'
 import Header from '../../components/header/index'
 import Footer from '../../components/footer/index'
-import {useRoute} from 'vue-router'
+import {useRoute,useRouter} from 'vue-router'
 import {cancelOrderApi, getOrderListApi} from '@/api/order.js'
 import {ElMessage} from "element-plus";
 //获取用户信息
 import useUserStore from "../../store/modules/user";
-
+const router = useRouter();
 //订单列表数据
 const orderList = ref(0)
 const useUser = useUserStore()
@@ -105,6 +106,10 @@ function cancelOrder(orderNumber){
       })
     }
   })
+}
+
+function payOrder(orderNumber){
+  router.replace({path:'/order/payMethod',state:{'orderNumber':orderNumber}})
 }
 
 onMounted(() => {
@@ -240,21 +245,31 @@ onMounted(() => {
         }
         li:nth-child(5){
           width:168px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
           .orderDetial{
             display: block;
             width: 98px !important;
             height: 30px;
-            line-height: 1;
+            line-height: 30px;
             text-align: center;
             background-color: rgba(255, 55, 29, 0.85);
             color: #fff;
             font-size: 14px;
             border-radius: 20px;
-            margin-top: 32px;
+            margin-top: 10px;
             border: none;
             margin-bottom: 10px;
-            margin-left: 44px;
+            margin-left: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+          }
 
+          .orderDetial:hover {
+            background-color: rgba(255, 55, 29, 1);
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(255, 55, 29, 0.3);
           }
         }
       }

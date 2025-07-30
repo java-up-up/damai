@@ -226,7 +226,7 @@ public class ProgramOrderService {
                 JSONObject seatDatajsonObject = new JSONObject();
                 seatDatajsonObject.put("seatNoSoldHashKey",RedisKeyBuild.createRedisKey(
                         RedisKeyManage.PROGRAM_SEAT_NO_SOLD_RESOLUTION_HASH, programId, ticketCategoryId).getRelKey());
-                seatDatajsonObject.put("seatDataList",JSON.toJSONString(seatDtoList));
+                seatDatajsonObject.put("seatDataList",JSON.toJSONString(entry.getValue()));
                 addSeatDatajsonArray.add(seatDatajsonObject);
             }
         }else {
