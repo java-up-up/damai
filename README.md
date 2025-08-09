@@ -87,7 +87,7 @@
 
 通过以上设计，来实现应对高并发、高吞吐的能力，以及海量数据的存储和服务状态的监控
 
-![](https://multimedia-javaup.cn/%E6%9E%B6%E6%9E%84%E5%9B%BE/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%E5%9B%BE%28%E5%8A%A8%E6%80%81%29.gif)
+![](https://multimedia-javaup.cn/%E6%9E%B6%E6%9E%84%E5%9B%BE/%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%E5%9B%BE%28%E5%8A%A8%E6%80%81%E4%BC%98%E5%8C%96%29.gif)
 
 ## 业务结构
 
