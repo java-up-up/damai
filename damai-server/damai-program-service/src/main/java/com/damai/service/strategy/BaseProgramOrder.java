@@ -33,7 +33,7 @@ public class BaseProgramOrder {
         List<Long> ticketCategoryIdList = new ArrayList<>();
         if (CollectionUtil.isNotEmpty(seatDtoList)) {
             ticketCategoryIdList =
-                    seatDtoList.stream().map(SeatDto::getTicketCategoryId).distinct().collect(Collectors.toList());
+                    seatDtoList.stream().map(SeatDto::getTicketCategoryId).distinct().sorted().collect(Collectors.toList());
         }else {
             ticketCategoryIdList.add(programOrderCreateDto.getTicketCategoryId());
         }
