@@ -84,9 +84,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static com.damai.constant.Constant.ALIPAY_NOTIFY_SUCCESS_RESULT;
-import static com.damai.core.DistributedLockConstants.ORDER_CANCEL_LOCK;
-import static com.damai.core.DistributedLockConstants.ORDER_PAY_CHECK;
-import static com.damai.core.DistributedLockConstants.ORDER_PAY_NOTIFY_CHECK;
+import static com.damai.core.DistributedLockConstants.UPDATE_ORDER_STATUS_LOCK;
 import static com.damai.core.RepeatExecuteLimitConstants.CANCEL_PROGRAM_ORDER;
 import static com.damai.core.RepeatExecuteLimitConstants.CREATE_PROGRAM_ORDER_MQ;
 import static com.damai.core.RepeatExecuteLimitConstants.PROGRAM_CACHE_REVERSE_MQ;
@@ -170,7 +168,7 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
      * 订单取消，以订单编号加锁
      * */
     @RepeatExecuteLimit(name = CANCEL_PROGRAM_ORDER,keys = {"#orderCancelDto.orderNumber"})
-    @ServiceLock(name = ORDER_CANCEL_LOCK,keys = {"#orderCancelDto.orderNumber"})
+    @ServiceLock(name = UPDATE_ORDER_STATUS_LOCK,keys = {"#orderCancelDto.orderNumber"})
     @Transactional(rollbackFor = Exception.class)
     public boolean cancel(OrderCancelDto orderCancelDto){
         updateOrderRelatedData(orderCancelDto.getOrderNumber(),OrderStatus.CANCEL);
@@ -221,7 +219,7 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
     /**
      * 支付后订单检查，以订单编号加锁，防止多次更新
      * */
-    @ServiceLock(name = ORDER_PAY_CHECK,keys = {"#orderPayCheckDto.orderNumber"})
+    @ServiceLock(name = UPDATE_ORDER_STATUS_LOCK,keys = {"#orderPayCheckDto.orderNumber"})
     public OrderPayCheckVo payCheck(OrderPayCheckDto orderPayCheckDto){
         OrderPayCheckVo orderPayCheckVo = new OrderPayCheckVo();
         LambdaQueryWrapper<Order> orderLambdaQueryWrapper =
@@ -298,7 +296,7 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
             return "failure";
         }
         
-        RLock lock = serviceLockTool.getLock(LockType.Reentrant, ORDER_PAY_NOTIFY_CHECK,
+        RLock lock = serviceLockTool.getLock(LockType.Reentrant, UPDATE_ORDER_STATUS_LOCK,
                 new String[]{outTradeNo});
         lock.lock();
         try {
@@ -611,7 +609,7 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
     }
     
     @RepeatExecuteLimit(name = CANCEL_PROGRAM_ORDER,keys = {"#orderCancelDto.orderNumber"})
-    @ServiceLock(name = ORDER_CANCEL_LOCK,keys = {"#orderCancelDto.orderNumber"})
+    @ServiceLock(name = UPDATE_ORDER_STATUS_LOCK,keys = {"#orderCancelDto.orderNumber"})
     @Transactional(rollbackFor = Exception.class)
     public boolean initiateCancel(OrderCancelDto orderCancelDto){
         Order order = orderMapper.selectOne(Wrappers.lambdaQuery(Order.class)

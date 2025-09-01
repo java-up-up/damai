@@ -5,8 +5,10 @@ import cn.hutool.core.util.StrUtil;
 import com.damai.core.RepeatExecuteLimitConstants;
 import com.damai.dto.ProgramOrderCreateDto;
 import com.damai.dto.SeatDto;
+import com.damai.enums.BaseCode;
 import com.damai.enums.CompositeCheckType;
 import com.damai.enums.ProgramOrderVersion;
+import com.damai.exception.DaMaiFrameException;
 import com.damai.initialize.base.AbstractApplicationCommandLineRunnerHandler;
 import com.damai.initialize.impl.composite.CompositeContainer;
 import com.damai.locallock.LocalLockCache;
@@ -85,15 +87,20 @@ public class ProgramOrderV2Strategy extends AbstractApplicationCommandLineRunner
             }
             localLockSuccessList.add(reentrantLock);
         }
+        boolean serviceLockFail = false;
         for (RLock rLock : serviceLockList) {
             try {
                 rLock.lock();
             }catch (Throwable t) {
+                serviceLockFail = true;
                 break;
             }
             serviceLockSuccessList.add(rLock);
         }
         try {
+            if (serviceLockFail) {
+                throw new DaMaiFrameException(BaseCode.SERVICE_LOCK_FAIL);
+            }
             return programOrderService.create(programOrderCreateDto);
         }finally {
             for (int i = serviceLockSuccessList.size() - 1; i >= 0; i--) {

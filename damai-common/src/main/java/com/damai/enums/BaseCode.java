@@ -249,6 +249,8 @@ public enum BaseCode {
     USER_EMAIL_NOT_EXIST(70002,"用户邮箱不存在"),
     
     NOT_FOUND_GENE(70003,"没有找到基因"),
+    
+    SERVICE_LOCK_FAIL(70004,"分布式锁加锁失败"),
     ;
     
     private final Integer code;
