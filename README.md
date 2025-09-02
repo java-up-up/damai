@@ -252,10 +252,10 @@
 包括对 **项目从0到1的讲解**、**项目的细节和亮点总结**、**遇到的面试真题**、**详细的各种优化后的压测报告**、**如何将项目有亮点的写到简历上**。并且提供后续的答疑解惑，小伙伴在学习项目时遇到没有理解的问题，或者面试过程中遇到的问题都可以在社区中进行反馈，本人会进行详细的分析解答
 
 # 如何启动项目
-- [准备项目启动条件](https://javaup.chat/pages/10e83e/)
-- [如何安装项目需要的中间件环境](https://javaup.chat/pages/5d7200/)
-- [后端项目部署启动](https://javaup.chat/pages/d5116b/)
-- [前端项目部署启动](https://javaup.chat/pages/b7e7ab/)
+- [准备项目启动条件](https://javaup.chat/%E5%A4%A7%E9%BA%A6/%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%E8%AE%B2%E8%A7%A3/%E5%87%86%E5%A4%87%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%E6%9D%A1%E4%BB%B6)
+- [如何安装项目需要的中间件环境](https://javaup.chat/%E5%A4%A7%E9%BA%A6/%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%E8%AE%B2%E8%A7%A3/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85%E9%A1%B9%E7%9B%AE%E9%9C%80%E8%A6%81%E7%9A%84%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%8E%AF%E5%A2%83)
+- [后端项目部署启动](https://javaup.chat/%E5%A4%A7%E9%BA%A6/%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%E8%AE%B2%E8%A7%A3/%E5%90%8E%E7%AB%AF%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E5%90%AF%E5%8A%A8)
+- [前端项目部署启动](https://javaup.chat/%E5%A4%A7%E9%BA%A6/%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%E8%AE%B2%E8%A7%A3/%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E5%90%AF%E5%8A%A8)
 
 # 文档和视频目录
 ![](https://multimedia-javaup.cn/%E6%9E%B6%E6%9E%84%E5%9B%BE/%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95.png)
