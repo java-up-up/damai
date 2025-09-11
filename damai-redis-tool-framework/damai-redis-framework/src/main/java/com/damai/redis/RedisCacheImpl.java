@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
@@ -1216,11 +1217,13 @@ public class RedisCacheImpl implements RedisCache {
         }
         if (clazz.isAssignableFrom(String.class)) {
             List<T> resultList = (List<T>) sources.stream()
+                    .filter(Objects::nonNull)
                     .map(each -> each instanceof String ? (String) each : JSON.toJSONString(each))
                     .collect(Collectors.toList());
             return resultList;
         }
         List<T> resultList = (List<T>) sources.stream()
+                .filter(Objects::nonNull)
                 .map(each -> each instanceof String ? JSON.parseObject((String) each, CacheUtil.buildType(clazz)) : null)
                 .collect(Collectors.toList());
         return resultList;
