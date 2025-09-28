@@ -218,11 +218,11 @@
 
 等等一系列的这种令人头疼的问题！之前的 damai 项目关于这方面的问题有做过处理，但有些是人工处理，没有实现全面的自动化，有的面试官听着感觉比较普通，没有给人十足的亮点。
 
-所以针对上述说的这种疑难杂症，特意开发出了 damai 项目的升级版本：<font size="5" color="#5575f6"> **damai_pro** </font>
+所以针对上述说的这种疑难杂症，特意开发出了 damai 项目的升级版本：<font size="5" color="#5575f6"> **大麦pro** </font>
 
 ![](https://multimedia-javaup.cn/%E5%A4%A7%E9%BA%A6pro/%E6%9E%B6%E6%9E%84%E9%9A%BE%E7%82%B9%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3.png)
 
-- **大麦pro详细介绍：** [👉 点击查看讲解](https://javaup.chat/%E5%A4%A7%E9%BA%A6/%E5%A4%A7%E9%BA%A6pro%E4%BB%8B%E7%BB%8D/%E5%A4%A7%E9%BA%A6pro%E7%89%88%E6%9C%AC%E9%9C%87%E6%92%BC%E6%9D%A5%E8%A2%AD)
+### 大麦pro详细介绍：[👉 点击查看讲解](https://javaup.chat/%E5%A4%A7%E9%BA%A6/%E5%A4%A7%E9%BA%A6pro%E4%BB%8B%E7%BB%8D/%E5%A4%A7%E9%BA%A6pro%E7%89%88%E6%9C%AC%E9%9C%87%E6%92%BC%E6%9D%A5%E8%A2%AD)
 
 # 项目展示
 
