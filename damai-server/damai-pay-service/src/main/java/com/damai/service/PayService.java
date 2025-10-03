@@ -79,19 +79,25 @@ public class PayService {
         PayResult pay = payStrategyHandler.pay(String.valueOf(payDto.getOrderNumber()), payDto.getPrice(), 
                 payDto.getSubject(),payDto.getNotifyUrl(),payDto.getReturnUrl());
         if (pay.isSuccess()) {
-            payBill = new PayBill();
-            payBill.setId(uidGenerator.getUid());
-            payBill.setOutOrderNo(String.valueOf(payDto.getOrderNumber()));
-            payBill.setPayChannel(payDto.getChannel());
-            payBill.setPayScene("生产");
-            payBill.setSubject(payDto.getSubject());
-            payBill.setPayAmount(payDto.getPrice());
-            payBill.setPayBillType(payDto.getPayBillType());
-            payBill.setPayBillStatus(PayBillStatus.NO_PAY.getCode());
-            payBill.setPayTime(DateUtils.now());
-            payBillMapper.insert(payBill);
+            if (Objects.isNull(payBill)){
+                payBill = new PayBill();
+                payBill.setId(uidGenerator.getUid());
+                payBill.setOutOrderNo(String.valueOf(payDto.getOrderNumber()));
+                payBill.setPayChannel(payDto.getChannel());
+                payBill.setPayScene("生产");
+                payBill.setSubject(payDto.getSubject());
+                payBill.setPayAmount(payDto.getPrice());
+                payBill.setPayBillType(payDto.getPayBillType());
+                payBill.setPayBillStatus(PayBillStatus.NO_PAY.getCode());
+                payBill.setPayTime(DateUtils.now());
+                payBillMapper.insert(payBill);
+            }else {
+                PayBill updatePayBill = new PayBill();
+                updatePayBill.setId(payBill.getId());
+                updatePayBill.setPayTime(DateUtils.now());
+                payBillMapper.updateById(updatePayBill);
+            }
         }
-        
         return pay.getBody();
     }
     
