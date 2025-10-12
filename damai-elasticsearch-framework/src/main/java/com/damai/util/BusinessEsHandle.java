@@ -97,7 +97,7 @@ public class BusinessEsHandle {
         if (esTypeSwitch) {
             builder.endObject();
         }
-        builder = builder.endObject().endObject().startObject("settings").field("number_of_shards", 3)
+        builder = builder.endObject().endObject().startObject("settings").field("number_of_shards", 1)
                 .field("number_of_replicas", 1).endObject().endObject();
     
         indexRequest.source(builder);
