@@ -187,10 +187,10 @@ public class ProgramOrderService {
         return doCreate(programOrderCreateDto,purchaseSeatList);
     }
     /**
-     * pro版本进行了优化，可以在保证高并发的同时，Redis和数据库的数据也能保证一致性，以及两者详细的扣减记录
-     * 方便后续的对账以及实时监控
-     * pro功能的详细介绍，请看 <a href="https://javaup.chat/damai/damai-pro/release-intro">...</a>
-     * */
+     * ⚠️注意！在升级的大麦pro版本中进行了优化，可以在保证高并发的同时，Redis和数据库的数据也能保证一致性，以及两者详细的扣减记录
+     * ✅大麦pro升级功能的详细介绍，请看 <a href="https://javaup.chat/damai/damai-pro/release-intro">...</a>
+     * ✨如何获取大麦pro项目？请看 <a href="https://articles.zsxq.com/id_m4d7ni4zwkbq.html">...</a>
+     **/
     public String createNewAsync(ProgramOrderCreateDto programOrderCreateDto) {
         List<SeatVo> purchaseSeatList = createOrderOperateProgramCacheResolution(programOrderCreateDto);
         return doCreateV2(programOrderCreateDto,purchaseSeatList);

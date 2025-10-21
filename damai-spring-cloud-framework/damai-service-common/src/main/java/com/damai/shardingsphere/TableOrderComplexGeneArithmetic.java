@@ -28,6 +28,12 @@ public class TableOrderComplexGeneArithmetic implements ComplexKeysShardingAlgor
     public void init(Properties props) {
         shardingCount = Integer.parseInt(props.getProperty(SHARDING_COUNT_KEY_NAME));
     }
+    
+    /**
+     * ⚠️注意！在升级的大麦pro版本中进行了优化，解决了在分库分表下数据均匀分布的问题
+     * ✅大麦pro升级功能的详细介绍，请看 <a href="https://javaup.chat/damai/damai-pro/release-intro">...</a>
+     * ✨如何获取大麦pro项目？，请看 <a href="https://articles.zsxq.com/id_m4d7ni4zwkbq.html">...</a>
+     **/
     @Override
     public Collection<String> doSharding(Collection<String> allActualSplitTableNames, ComplexKeysShardingValue<Long> complexKeysShardingValue) {
         List<String> actualTableNames = new ArrayList<>(allActualSplitTableNames.size());

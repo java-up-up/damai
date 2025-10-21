@@ -35,6 +35,11 @@ public class CreateOrderConsumer {
     
     public static Long MESSAGE_DELAY_TIME = 5000L;
     
+    /**
+     * ⚠️注意！在升级的大麦pro版本中进行了优化，加入了消息延迟的废单统计、补偿机制、消息对账、实时监控等功能
+     * ✅大麦pro升级功能的详细介绍，请看 <a href="https://javaup.chat/damai/damai-pro/release-intro">...</a>
+     * ✨如何获取大麦pro项目？请看 <a href="https://articles.zsxq.com/id_m4d7ni4zwkbq.html">...</a>
+     **/
     @KafkaListener(topics = {SPRING_INJECT_PREFIX_DISTINCTION_NAME+"-"+"${spring.kafka.topic:create_order}"})
     public void consumerOrderMessage(ConsumerRecord<String,String> consumerRecord){
         try {

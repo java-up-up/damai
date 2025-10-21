@@ -20,7 +20,7 @@ import static com.damai.core.DistributedLockConstants.PROGRAM_ORDER_CREATE_V4;
 
 /**
  * @program: 极度真实还原大麦网高并发实战项目。 添加 阿星不是程序员 微信，添加时备注 大麦 来获取项目的完整资料 
- * @description: 节目订单v4，pro版本进行了优化，解决了数据一致性的问题
+ * @description: 节目订单v4
  * @author: 阿星不是程序员
  **/
 @Slf4j
@@ -36,6 +36,11 @@ public class ProgramOrderV4Strategy extends AbstractApplicationCommandLineRunner
     @Autowired
     private CompositeContainer compositeContainer;
     
+    /**
+     * ⚠️注意！在升级的大麦pro版本中进行了优化，解决了数据一致性的问题
+     * ✅大麦pro升级功能的详细介绍，请看 <a href="https://javaup.chat/damai/damai-pro/release-intro">...</a>
+     * ✨如何获取大麦pro项目？请看 <a href="https://articles.zsxq.com/id_m4d7ni4zwkbq.html">...</a>
+     **/
     @RepeatExecuteLimit(
             name = RepeatExecuteLimitConstants.CREATE_PROGRAM_ORDER,
             keys = {"#programOrderCreateDto.userId","#programOrderCreateDto.programId"})

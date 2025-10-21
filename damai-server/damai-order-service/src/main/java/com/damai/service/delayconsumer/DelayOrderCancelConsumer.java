@@ -25,6 +25,11 @@ public class DelayOrderCancelConsumer implements ConsumerTask {
     @Autowired
     private OrderService orderService;
     
+    /**
+     * ⚠️注意！在升级的大麦pro版本中进行了优化，解决了延迟队列数据丢失、消费失败等问题，提高了消息的可靠性
+     * ✅大麦pro升级功能的详细介绍，请看 <a href="https://javaup.chat/damai/damai-pro/release-intro">...</a>
+     * ✨如何获取大麦pro项目？请看 <a href="https://articles.zsxq.com/id_m4d7ni4zwkbq.html">...</a>
+     **/
     @Override
     public void execute(String content) {
         log.info("延迟订单取消消息进行消费 content : {}", content);
