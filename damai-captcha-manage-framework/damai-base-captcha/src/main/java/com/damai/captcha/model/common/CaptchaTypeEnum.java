@@ -1,10 +1,13 @@
 package com.damai.captcha.model.common;
 
+import lombok.Getter;
+
 /**
  * @program: 极度真实还原大麦网高并发实战项目。 添加 阿星不是程序员 微信，添加时备注 大麦 来获取项目的完整资料 
  * @description: 动作类型枚举
  * @author: 阿星不是程序员
  **/
+@Getter
 public enum CaptchaTypeEnum {
     /**
      * 旋转拼图.
@@ -30,10 +33,6 @@ public enum CaptchaTypeEnum {
         this.codeValue = codeValue;
         this.codeDesc = codeDesc;
     }
-
-    public String   getCodeValue(){ return this.codeValue;}
-
-    public String getCodeDesc(){ return this.codeDesc;}
     
     /**
      * 根据codeValue获取枚举

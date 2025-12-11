@@ -7,7 +7,9 @@
 package com.damai.captcha.model.common;
 
 import com.damai.captcha.util.StringUtils;
+import lombok.Getter;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -15,8 +17,10 @@ import java.io.Serializable;
  * @description: 返回数据
  * @author: 阿星不是程序员
  **/
+@Getter
 public class ResponseModel implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 8445617032523881407L;
 
     private String            repCode;
@@ -87,11 +91,7 @@ public class ResponseModel implements Serializable {
 	public boolean isSuccess(){
         return StringUtils.equals(repCode, RepCodeEnum.SUCCESS.getCode());
     }
-
-    public String getRepCode() {
-        return repCode;
-    }
-
+    
     public void setRepCode(String repCode) {
         this.repCode = repCode;
     }
@@ -99,19 +99,11 @@ public class ResponseModel implements Serializable {
         this.repCode=repCodeEnum.getCode();
         this.repMsg=repCodeEnum.getDesc();
     }
-
-    public String getRepMsg() {
-        return repMsg;
-    }
-
+    
     public void setRepMsg(String repMsg) {
         this.repMsg = repMsg;
     }
-
-    public Object getRepData() {
-        return repData;
-    }
-
+    
     public void setRepData(Object repData) {
         this.repData = repData;
     }
