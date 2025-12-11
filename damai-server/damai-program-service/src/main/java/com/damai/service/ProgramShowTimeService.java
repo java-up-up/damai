@@ -100,6 +100,9 @@ public class ProgramShowTimeService extends ServiceImpl<ProgramShowTimeMapper, P
                 programId), ProgramShowTime.class);
     }
     
+    /**
+     * 大麦pro版本对于多级缓存的功能又进行了优化，详情请见：<a href="https://articles.zsxq.com/id_m4d7ni4zwkbq.html">...</a>
+     * */
     @ServiceLock(lockType= LockType.Read,name = PROGRAM_SHOW_TIME_LOCK,keys = {"#programId"})
     public ProgramShowTime selectProgramShowTimeByProgramId(Long programId){
         ProgramShowTime programShowTime = redisCache.get(RedisKeyBuild.createRedisKey(RedisKeyManage.PROGRAM_SHOW_TIME, 
