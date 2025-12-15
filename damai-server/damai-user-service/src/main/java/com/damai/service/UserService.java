@@ -127,7 +127,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         return true;
     }
     
-    @ServiceLock(lockType= LockType.Read,name = REGISTER_USER_LOCK,keys = {"#mobile"})
+    @ServiceLock(lockType= LockType.Read,name = REGISTER_USER_LOCK,keys = {"#userExistDto.mobile"})
     public void exist(UserExistDto userExistDto){
         doExist(userExistDto.getMobile());
     }
