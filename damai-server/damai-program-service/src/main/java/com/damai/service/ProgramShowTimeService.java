@@ -130,6 +130,9 @@ public class ProgramShowTimeService extends ServiceImpl<ProgramShowTimeMapper, P
         }
     }
     
+    /**
+     * 此方法用来更新演示项目的数据，所以不需要研究
+     * */
     @Transactional(rollbackFor = Exception.class)
     public Set<Long> renewal(){
         Set<Long> programIdSet = new HashSet<>();
