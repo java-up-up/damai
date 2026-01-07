@@ -127,9 +127,8 @@ abstract class BaseJsonLayout extends AbstractStringLayout {
      */
     private void appendTraceInfo(Map<String, Object> logData) {
         String traceId = MDC.get(TRACE_ID);
-        if (StringUtil.isNotEmpty(traceId)) {
-            logData.put("traceId", traceId);
-        }
+        // 如果没有 traceId，给一个默认值，避免 ES 字段映射问题
+        logData.put("traceId", StringUtil.isNotEmpty(traceId) ? traceId : "-");
     }
 
     /**
