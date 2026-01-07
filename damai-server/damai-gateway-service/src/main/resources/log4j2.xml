@@ -13,7 +13,7 @@
         <Property name="PROJECT_NAME">gateway-service</Property>
         <Property name="ENV">local</Property>
         <Property name="FILE_NAME">log</Property>
-        <Property name="PATTERN">[gateway-service] [%X{traceId}] %d{yyyy-MM-dd HH:mm:ss} %5p %c{1}:%L - %m%n</Property>
+        <Property name="PATTERN">[gateway-service] [%X{traceId}] [%X{skyWalkingTraceId}] %d{yyyy-MM-dd HH:mm:ss} %5p %c{1}:%L - %m%n</Property>
         <Property name="ENCODING">UTF-8</Property>
         <Property name="CUSTOM_MESSAGE_KEY">com.damai</Property>
     </Properties>
@@ -57,6 +57,12 @@
             <!-- 最多保留文件数 -->
             <DefaultRolloverStrategy max="30"/>
         </RollingFile>
+
+        <!-- 输出日志到远程服务器 -->
+        <!--<Socket name="Logstash" host="127.0.0.1" port="5047" protocol="TCP">
+            <ThresholdFilter level="INFO"/>
+            <DamaiJsonLayout projectName="${PROJECT_NAME}" env="${ENV}" charset="${ENCODING}" complete="false" compact="true" eventEol="true" locationInfo="true" includeStacktrace="true" />
+        </Socket>-->
     </Appenders>
 
     <Loggers>
@@ -68,6 +74,7 @@
             <appender-ref ref="Console"/>
             <appender-ref ref="RollingFile"/>
             <appender-ref ref="RollingFileError"/>
+            <!--<appender-ref ref="Logstash"/>-->
         </root>
     </Loggers>
 </Configuration>
