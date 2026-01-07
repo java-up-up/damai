@@ -182,7 +182,6 @@ public class RequestValidationFilter implements GlobalFilter, Ordered {
     }
 
     private Map<String,String> doExecute(String originalBody,ServerWebExchange exchange){
-        log.info("current thread verify: {}",Thread.currentThread().getName());
         ServerHttpRequest request = exchange.getRequest();
         String requestBody = originalBody;
         Map<String, String> bodyContent = new HashMap<>(32);
