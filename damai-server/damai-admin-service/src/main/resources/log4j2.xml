@@ -10,10 +10,10 @@
     <Properties>
         <!-- 配置日志文件输出目录 -->
         <Property name="LOG_HOME">.</Property>
-        <Property name="PROJECT_NAME">admin</Property>
+        <Property name="PROJECT_NAME">admin-service</Property>
         <Property name="ENV">local</Property>
         <Property name="FILE_NAME">log</Property>
-        <Property name="PATTERN">[admin] [%X{traceId}] %d{yyyy-MM-dd HH:mm:ss} %5p %c{1}:%L - %m%n</Property>
+        <Property name="PATTERN">[admin-service] [%X{traceId}] %d{yyyy-MM-dd HH:mm:ss} %5p %c{1}:%L - %m%n</Property>
         <Property name="ENCODING">UTF-8</Property>
         <Property name="CUSTOM_MESSAGE_KEY">com.damai</Property>
     </Properties>
