@@ -61,15 +61,13 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+  endpoint:
+    health:
+      show-details: always
   endpoints:
-    enabled-by-default: true 
     web:
       exposure:
         include: '*'
-    health:
-      show-details: always
-  security:
-    enabled: false
   health:
     elasticsearch:
       enabled: false

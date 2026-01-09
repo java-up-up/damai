@@ -85,17 +85,23 @@ feign:
     response:
       enabled: true
 management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoint:
+    health:
+      show-details: always
   endpoints:
     web:
       exposure:
         include: '*'
-    health:
-      show-details: always
-  security:
-    enabled: false
   health:
     elasticsearch:
       enabled: false
+  prometheus:
+    metrics:
+      export:
+        enabled: true
 jasypt:
   encryptor:
     password: bgtjkjl!%^sdc

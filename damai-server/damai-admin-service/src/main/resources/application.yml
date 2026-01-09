@@ -26,14 +26,23 @@ spring:
   main:
     allow-bean-definition-overriding: true
 management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoint:
+    health:
+      show-details: always
   endpoints:
     web:
       exposure:
         include: '*'
-    health:
-      show-details: always
-  security:
-    enabled: false
+  health:
+    elasticsearch:
+      enabled: false
+  prometheus:
+    metrics:
+      export:
+        enabled: true
     
 springdoc:
   swagger-ui:
