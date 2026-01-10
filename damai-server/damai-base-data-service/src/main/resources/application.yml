@@ -60,7 +60,7 @@ feign:
 management:
   metrics:
     tags:
-      application: ${spring.application.name}
+      application: base-data-service
   endpoint:
     health:
       show-details: always

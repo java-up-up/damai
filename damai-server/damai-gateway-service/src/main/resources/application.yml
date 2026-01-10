@@ -82,7 +82,7 @@ feign:
 management:
   metrics:
     tags:
-      application: ${spring.application.name}
+      application: gateway-service
   endpoint:
     health:
       show-details: always

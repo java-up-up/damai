@@ -63,7 +63,7 @@ feign:
 management:
   metrics:
     tags:
-      application: ${spring.application.name}
+      application: pay-service
   endpoint:
     health:
       show-details: always

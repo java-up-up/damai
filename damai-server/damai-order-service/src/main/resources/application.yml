@@ -81,7 +81,7 @@ feign:
 management:
   metrics:
     tags:
-      application: ${spring.application.name}
+      application: order-service
   endpoint:
     health:
       show-details: always

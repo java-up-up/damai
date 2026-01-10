@@ -28,7 +28,7 @@ spring:
 management:
   metrics:
     tags:
-      application: ${spring.application.name}
+      application: admin-service
   endpoint:
     health:
       show-details: always
