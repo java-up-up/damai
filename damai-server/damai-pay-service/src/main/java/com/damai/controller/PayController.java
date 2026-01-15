@@ -32,13 +32,13 @@ public class PayController {
     @Autowired
     private PayService payService;
     
-    @Operation(summary  = "支付")
+    @Operation(summary  = "支付（feign微服务调用，不直接暴漏给前端）")
     @PostMapping(value = "/common/pay")
     public ApiResponse<String> commonPay(@Valid @RequestBody PayDto payDto) {
         return ApiResponse.ok(payService.commonPay(payDto));
     }
     
-    @Operation(summary  = "支付后回到通知")
+    @Operation(summary  = "支付后回调通知（feign微服务调用，不直接暴漏给前端）")
     @PostMapping(value = "/notify")
     public ApiResponse<NotifyVo> notify(@Valid @RequestBody NotifyDto notifyDto) {
         return ApiResponse.ok(payService.notify(notifyDto));
