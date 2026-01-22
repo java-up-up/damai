@@ -15,4 +15,10 @@ public interface ProgramOrderStrategy {
      * @return 订单编号
      * */
     String createOrder(ProgramOrderCreateDto programOrderCreateDto);
+    
+    /**
+     * 获取版本号
+     * @return 版本号
+     * */
+    String version();
 }
