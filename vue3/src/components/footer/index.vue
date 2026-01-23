@@ -52,28 +52,36 @@ const footerList = ref(
 
 <style scoped lang="scss">
 .footer {
-  background-color: #f8f8f8;
+  background-color: #fff;
   width: 100%;
-  //height: 298px;
- height: 150px;
-  //position: fixed;
+  padding: 30px 0 20px;
+  border-top: 1px solid #eee;
 
   .footer-sec {
     width: 1200px;
-    margin: 20px auto 0 auto;
+    margin: 0 auto;
 
     .footer-links {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 36px 0;
+      padding: 0;
       text-align: center;
-      zoom: 1;
       list-style: none;
-      font-size: 13px;
-      color: #111;
+      font-size: 14px;
+      color: #666;
 
       li {
+        a {
+          color: #666;
+          text-decoration: none;
+          transition: color 0.2s;
+
+          &:hover {
+            color: #ff371d;
+          }
+        }
+
         &:last-child {
           .line {
             display: none !important;
@@ -81,98 +89,40 @@ const footerList = ref(
         }
 
         .line {
-          padding: 0 24px;
-
-
+          padding: 0 20px;
+          color: #ddd;
         }
-      }
-
-
-    }
-
-    .footer-ft {
-      zoom: 1;
-      float: left;
-      margin-top: 20px;
-      padding-bottom: 58px;
-      margin-right: 100px;
-
-      .link {
-        img {
-
-        }
-      }
-
-      .code {
-
-        text-align: center;
-        margin-left: 40px;
-        float: right;
-
-        img {
-          display: inline-block;
-          width: 87px;
-          height: 87px;
-          margin-bottom: 8px;
-        }
-
-        span {
-          font-size: 14px;
-          color: #111;
-          text-align: center;
-          width: 87px;
-          display: block;
-        }
-
       }
     }
 
     .footer-rt {
-      zoom: 1;
-      padding-bottom: 10px;
+      margin-top: 16px;
 
-      .elBtn {
-        float: left;
-        display: block;
-        width: 98px !important;
-        height: 30px;
-        line-height: 1;
+      .footer-details-info {
+        width: 100%;
         text-align: center;
-        background-color: rgba(255, 55, 29, 0.85);
-        color: #fff;
-        font-size: 14px;
-        border-radius: 20px;
-        margin-top: 20px;
-        border: none;
-        margin-bottom: 10px;
 
-        span {
-          display: inline-flex;
-          align-items: center;
-        }
-      }
-
-      .footer-details {
-        list-style: none;
-
-        li {
-          width: 69%;
-          height: 20px;
-          float: left;
+        .footer-links {
+          padding: 0;
           font-size: 13px;
-          color: #111;
-          margin-top: 10px;
+          color: #999;
+
+          li a {
+            color: #999;
+
+            &:hover {
+              color: #ff371d;
+            }
+          }
+
+          .line {
+            padding: 0 16px;
+            color: #ddd;
+          }
         }
-      }
-      .footer-details-info{
-        width: 1200px;
-        height: 20px;
-        text-align: center;
-        font-size: 14px;
       }
     }
   }
-
 }
 
 .btn {

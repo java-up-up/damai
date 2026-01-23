@@ -1,10 +1,9 @@
 <template>
   <!--点击进入单独界面详情-->
+  <Header></Header>
   <div class="app-container">
-    <Header></Header>
-    <div class="app-container">
-      <div class="wrapper">
-        <div class="box-left">
+    <div class="wrapper">
+      <div class="box-left">
           <div class="box-detail">
             <div class="count">
               <div class="box-img"><img :src="detailList.itemPicture" alt=""></div>
@@ -205,17 +204,11 @@
           </ul>
         </div>
       </div>
-    </div>
-
-   <Footer></Footer>
-
   </div>
-
 </template>
 
 <script setup name="detial">
 import Header from '@/components/header/index'
-import Footer from '@/components/footer/index'
 import {formatDateWithWeekday } from '@/utils/index'
 import {useRoute, useRouter} from 'vue-router'
 import {getProgramDetials} from '@/api/contentDetail'
@@ -358,7 +351,6 @@ function getRecommendList(){
 .app-container {
   width: 1200px;
   margin: 0 auto;
-  overflow: auto;
 
   .wrapper {
     display: flex;
@@ -900,9 +892,8 @@ function getRecommendList(){
     .box-right {
       box-sizing: border-box;
       width: 320px;
-      border-left: 1px solid #ebebeb;
+      border-left: none;
       padding: 40px 18px 0;
-      float: left;
 
       .service {
         padding: 24px 15px;
@@ -963,19 +954,18 @@ function getRecommendList(){
           width: 100%;
           height: 160px;
           margin-bottom: 30px;
+          display: flex;
           .link{
             width: 120px;
             height: 100%;
             display: inline-block;
             img{
-              float: left;
               width: 120px;
               height: 100%;
             }
           }
           .search_item_info{
             width: 157px;
-            float: right;
             height: 160px;
             .link__title{
               display: -webkit-box;
