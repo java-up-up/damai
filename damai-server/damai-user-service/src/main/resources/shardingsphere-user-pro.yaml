@@ -57,37 +57,37 @@ rules:
             shardingAlgorithmName: tableTicketUserModModel
     shardingAlgorithms:
       databaseUserMobileHashModModel:
-        type: HASH_MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: ds_${Math.abs(mobile.hashCode()) % 2}
       tableUserMobileHashMod:
-        type: HASH_MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: d_user_mobile_${(Math.abs(mobile.hashCode()).intdiv(2)) % 2}
       databaseUserEmailHashModModel:
-        type: HASH_MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: ds_${Math.abs(email.hashCode()) % 2}
       tableUserEmailHashMod:
-        type: HASH_MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: d_user_email_${(Math.abs(email.hashCode()).intdiv(2)) % 2}
       databaseUserModModel:
-        type: MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: ds_${id % 2}
       tableUserModModel:
-        type: MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: d_user_${(id.intdiv(2)) % 2}
       databaseTicketUserModModel:
-        type: MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: ds_${user_id % 2}
       tableTicketUserModModel:
-        type: MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: d_ticket_user_${(user_id.intdiv(2)) % 2}
   - !ENCRYPT
     tables:
       d_user:

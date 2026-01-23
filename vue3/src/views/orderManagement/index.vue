@@ -1,5 +1,5 @@
 <template>
-  <!--订单管理-->
+<!--订单管理-->
   <Header></Header>
   <div class="red-line"></div>
   <div class="section">
@@ -17,9 +17,9 @@
         </thead>
       </table>
       <div class="orderBox" v-for="(order, index) in orderList" :key="index">
-        <div class="num">订单号: {{order.orderNumber}}</div>
-        <ul>
-          <li>
+          <div class="num">订单号: {{order.orderNumber}}</div>
+          <ul>
+            <li>
             <img :src="order.programItemPicture" alt="">
             <div class="project">
               <div class="title">{{order.programTitle}}</div>
@@ -27,22 +27,22 @@
               <div class="content">演出场馆: {{order.programPlace}}</div>
             </div>
           </li>
-          <li>{{ order.ticketCount }}</li>
-          <li><div class="price">￥ {{ order.orderPrice }}</div><div class="money">(含运费￥0.00)</div></li>
-          <li>
-            <div class="orderStatus">{{ getOrderStatus(order.orderStatus) }}</div>
-            <router-link class=" link" :to="{name:'orderDetail',params:{orderNumber:order.orderNumber}}"  >
-              订单详情
-            </router-link>
-          </li>
-          <li>
-            <button  class="orderDetial" v-show="order.orderStatus == 1" @click="cancelOrder(order.orderNumber)">取消订单</button>
-            <button  class="orderDetial" v-show="order.orderStatus == 1" @click="payOrder(order.orderNumber)">支付订单</button>
-          </li>
-        </ul>
-      </div>
+            <li>{{ order.ticketCount }}</li>
+            <li><div class="price">￥ {{ order.orderPrice }}</div><div class="money">(含运费￥0.00)</div></li>
+            <li>
+              <div class="orderStatus">{{ getOrderStatus(order.orderStatus) }}</div>
+              <router-link class=" link" :to="{name:'orderDetail',params:{orderNumber:order.orderNumber}}"  >
+                订单详情
+              </router-link>
+            </li>
+            <li>
+              <button  class="orderDetial" v-show="order.orderStatus == 1" @click="cancelOrder(order.orderNumber)">取消订单</button>
+              <button  class="orderDetial" v-show="order.orderStatus == 1" @click="payOrder(order.orderNumber)">支付订单</button>
+            </li>
+          </ul>
+          </div>
 
-    </div>
+  </div>
   </div>
   <Footer class="foot"></Footer>
 
@@ -265,7 +265,7 @@ onMounted(() => {
             cursor: pointer;
             transition: all 0.3s ease;
           }
-
+          
           .orderDetial:hover {
             background-color: rgba(255, 55, 29, 1);
             transform: scale(1.05);

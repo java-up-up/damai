@@ -64,6 +64,12 @@ export const constantRoutes = [
         component: () => import('@/views/order/buyTicketUser'),
         meta: {requiresAuth: true},
 
+    },{
+        path: '/order/seatSelect',
+        name: 'SeatSelect',
+        component: () => import('@/views/order/seatSelect'),
+        meta: {requiresAuth: true},
+
     }, {
         path: '/personInfo/index',
         name: '个人信息',

@@ -14,15 +14,14 @@ dataSources:
     password: root
     
 rules:
-  # 分库分表规则
   - !SHARDING
-    tables:    
+    tables:
       d_pay_bill:
         actualDataNodes: ds_${0..1}.d_pay_bill_${0..1}
         databaseStrategy:
           standard:
             shardingColumn: out_order_no
-            shardingAlgorithmName: databasePayHashModModel   
+            shardingAlgorithmName: databasePayHashModModel
         tableStrategy:
           standard:
             shardingColumn: out_order_no
@@ -36,24 +35,24 @@ rules:
         tableStrategy:
           standard:
             shardingColumn: out_order_no
-            shardingAlgorithmName: tableRefundHashModModel      
+            shardingAlgorithmName: tableRefundHashModModel
     shardingAlgorithms:
       databasePayHashModModel:
-        type: HASH_MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: ds_${Math.abs(out_order_no.hashCode()) % 2}
       tablePayHashModModel:
-        type: HASH_MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: d_pay_bill_${(Math.abs(out_order_no.hashCode()).intdiv(2)) % 2}
       databaseRefundHashModModel:
-        type: HASH_MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: ds_${Math.abs(out_order_no.hashCode()) % 2}
       tableRefundHashModModel:
-        type: HASH_MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: d_refund_bill_${(Math.abs(out_order_no.hashCode()).intdiv(2)) % 2}
 props:
-  sql-show: true      
+  sql-show: true
       

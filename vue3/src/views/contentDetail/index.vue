@@ -79,15 +79,16 @@
                   </div>
                 </div>
                 <div class="buy">
-                  <div class="buy-link-now" @click="nowBuy">立即购买</div>
+                  <div class="buy-link-now" v-if="detailList.permitChooseSeat!='1'" @click="nowBuy">立即购买</div>
+                  <div class="buy-link-now" v-if="detailList.permitChooseSeat=='1'" @click="seatBuy">选座购买</div>
                   <!--                    <router-link class="buy-link" to="/order/index">不，选座购买</router-link>-->
-                  <!--                  <div class="subtitle">请您移步手机端购买</div>
-                                    <div class="qrcode">
-                                      <div class="tip">手机扫码购买更便捷</div>
-                                      <div class="J_qrcodeImg"></div>
-                                      <div class="buy-link" @click="nowBuy">不，立即购买</div>
+<!--                  <div class="subtitle">请您移步手机端购买</div>
+                  <div class="qrcode">
+                    <div class="tip">手机扫码购买更便捷</div>
+                    <div class="J_qrcodeImg"></div>
+                    <div class="buy-link" @click="nowBuy">不，立即购买</div>
 
-                                    </div>-->
+                  </div>-->
                 </div>
 
               </div>
@@ -134,7 +135,6 @@
         <div class="box-right">
           <div class="service">
 
-            <div class="sit" v-show="detailList.permitChooseSeat=='1'">查看座位图</div>
             <div class="service-note">
               <div class="service-name" v-if="detailList.permitRefund!=''">
                 <i class="icon-no" v-if="detailList.permitRefund=='0'"></i><span v-if="detailList.permitRefund=='0'">不支持退</span>
@@ -184,18 +184,18 @@
           </div>
           <ul class="search__box">
             <li class="search__item" v-for="item in recommendList">
-              <router-link :to="{name:'detial',params:{id:item.id}}" class="link" >
-                <img :src="item.itemPicture" alt="">
-                <router-view :key="route.fullpath" />
-
-              </router-link>
-
-              <div class="search_item_info">
-                <router-link :to="{name:'detial',params:{id:item.id}}"  class="link__title" >
-                  <router-view :key="route.fullpath"/>
-                  {{ item.title }}
+                <router-link :to="{name:'detial',params:{id:item.id}}" class="link" >
+                  <img :src="item.itemPicture" alt="">
+                  <router-view :key="route.fullpath" />
 
                 </router-link>
+
+              <div class="search_item_info">
+                  <router-link :to="{name:'detial',params:{id:item.id}}"  class="link__title" >
+                    <router-view :key="route.fullpath"/>
+                    {{ item.title }}
+
+                  </router-link>
                 <div class="search__item__info__venue">{{ item.place }}</div>
                 <div class="search__item__info__venue">{{ formatDateWithWeekday(item.showTime, item.showWeekTime) }}</div>
                 <div class="search__item__info__price">￥<strong>{{ item.minPrice }}</strong> 起</div>
@@ -207,7 +207,7 @@
       </div>
     </div>
 
-    <Footer></Footer>
+   <Footer></Footer>
 
   </div>
 
@@ -307,13 +307,13 @@ function getProgramDetialsList() {
 }
 
 const ticketClick = (item, index) => {
-  actvieIndex.value = index;
-  countPrice.value = item.price; // 显式更新单价
-  allPrice.value = item.price * num.value; // 总价 = 新单价 × 当前数量
-  ticketCategoryId.value = item.id;
-  // actvieIndex.value = index     原本代码
-  // allPrice.value = item.price      原本代码
-  // ticketCategoryId.value = item.id      原本代码
+    actvieIndex.value = index;
+    countPrice.value = item.price; // 显式更新单价
+    allPrice.value = item.price * num.value; // 总价 = 新单价 × 当前数量
+    ticketCategoryId.value = item.id;
+    // actvieIndex.value = index     原本代码
+    // allPrice.value = item.price      原本代码
+    // ticketCategoryId.value = item.id      原本代码
 }
 const detialClick = (url, index) => {
   menuActive.value = index
@@ -321,7 +321,7 @@ const detialClick = (url, index) => {
 
 }
 const handleChange = (value) => {
-  const priceEach= countPrice.value
+ const priceEach= countPrice.value
   allPrice.value = priceEach*value
 
 }
@@ -330,6 +330,11 @@ const nowBuy=()=>{
         {'detailList':JSON.stringify(detailList.value),'allPrice':allPrice.value,
           'countPrice':countPrice.value,'num':num.value,'ticketCategoryId':ticketCategoryId.value}})
 
+}
+
+const seatBuy=()=>{
+  router.replace({path:'/order/seatSelect',state:
+        {'detailList':JSON.stringify(detailList.value)}})
 }
 
 getRecommendList()
@@ -678,8 +683,9 @@ function getRecommendList(){
               margin-top: 20px;
               .buy-link-now{
                 width: 100px;
-                display: block;
+                display: inline-block;
                 margin-bottom: 24px;
+                margin-right: 15px;
                 height: 35px;
                 line-height: 35px;
                 font-size: 12px;
@@ -688,6 +694,23 @@ function getRecommendList(){
                 cursor: pointer;
                 background-color: rgba(255, 55, 29, 0.85);
                 border-radius: 36px;
+              }
+              .buy-link-seat{
+                width: 100px;
+                display: inline-block;
+                margin-bottom: 24px;
+                height: 35px;
+                line-height: 35px;
+                font-size: 12px;
+                text-align: center;
+                color: rgba(255, 55, 29, 0.85);
+                cursor: pointer;
+                background-color: #fff;
+                border: 1px solid rgba(255, 55, 29, 0.85);
+                border-radius: 36px;
+              }
+              .buy-link-seat:hover{
+                background-color: rgba(255, 55, 29, 0.1);
               }
 
 

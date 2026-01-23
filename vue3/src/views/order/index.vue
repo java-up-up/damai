@@ -8,6 +8,15 @@
           <div class="line"></div>
           <div class="time"><span>{{ formatDateWithWeekday(detailList.showTime, detailList.showWeekTime) }}</span></div>
           <div class="money"><span>￥<span v-if="allPrice == ''">{{countPrice}}</span><span v-else>{{allPrice}}</span>票档</span><span >×<span  v-if="allPrice == ''">1</span><span  v-else>{{num}}</span>张</span></div>
+          <!-- 选座信息展示 -->
+          <div class="seat-info" v-if="isChooseSeat && selectedSeatsData.length > 0">
+            <span class="seat-label">已选座位：</span>
+            <span class="seat-list">
+              <span v-for="seat in selectedSeatsData" :key="seat.id" class="seat-item">
+                {{ seat.rowCode }}排{{ seat.colCode }}座(￥{{ seat.price }})
+              </span>
+            </span>
+          </div>
           <div class="order-info">
             <span>按付款顺序配票，优先连座配票</span>
           </div>
@@ -157,6 +166,10 @@ const ticketUserIdArr = ref([])
 const ticketCategoryId = ref('')
 const orderNumberCache = ref('')
 const loading = ref(false)
+// 选座相关数据
+const seatIdList = ref([])
+const isChooseSeat = ref(false)
+const selectedSeatsData = ref([])
 const svg = `
         <path class="path" d="
           M 30 15
@@ -168,8 +181,8 @@ const svg = `
         " style="stroke-width: 4px; fill: rgba(0, 0, 0, 0)"/>`
 const pollingTimer = ref(null);
 const timeoutTimer = ref(null);
-// 5s的时间（毫秒）
-const fiveSecond = 5000;
+// 10s的时间（毫秒）
+const tenSecond = 10000;
 
 //跳转后的接收值
 onMounted(()=>{
@@ -178,6 +191,12 @@ onMounted(()=>{
   countPrice.value  =history.state.countPrice
   num.value  =history.state.num
   ticketCategoryId.value = history.state.ticketCategoryId
+  // 接收选座数据
+  if (history.state.isChooseSeat) {
+    isChooseSeat.value = true
+    seatIdList.value = JSON.parse(history.state.seatIdList || '[]')
+    selectedSeatsData.value = JSON.parse(history.state.selectedSeats || '[]')
+  }
 })
 
 getPersonInfoIdList()
@@ -225,9 +244,9 @@ function getOrderCache(orderNumber){
 const startPolling = (orderNumber,startTime) => {
   pollingTimer.value = setInterval(() => {
     const currentTime = Date.now();
-    if (currentTime - startTime >= fiveSecond) {
+    if (currentTime - startTime >= tenSecond) {
       stopPolling();
-      //1. 大于5秒，此订单被舍弃，显示排队弹框
+      //1. 大于10秒，此订单被舍弃，显示排队弹框
       //2. loading弹出框关闭
       loadingClose();
       //3. 排队弹框显示
@@ -265,12 +284,26 @@ function submitOrder(){
     return;
   }
 
-  const orderCreateParams = {
-    'programId':detailList.value.id,
-    'userId':useUser.userId,
-    'ticketUserIdList':ticketUserIdArr.value,
-    'ticketCategoryId':ticketCategoryId.value,
-    'ticketCount':num.value
+  // 根据是否手动选座构建不同的请求参数
+  let orderCreateParams = {
+    'programId': detailList.value.id,
+    'userId': useUser.userId,
+    'ticketUserIdList': ticketUserIdArr.value
+  }
+
+  if (isChooseSeat.value && selectedSeatsData.value.length > 0) {
+    // 手动选座：传 seatDtoList
+    orderCreateParams.seatDtoList = selectedSeatsData.value.map(seat => ({
+      id: seat.id,
+      ticketCategoryId: seat.ticketCategoryId,
+      rowCode: parseInt(seat.rowCode),
+      colCode: parseInt(seat.colCode),
+      price: seat.price
+    }))
+  } else {
+    // 自动选座：传 ticketCategoryId 和 ticketCount
+    orderCreateParams.ticketCategoryId = ticketCategoryId.value
+    orderCreateParams.ticketCount = num.value
   }
 
   const createOrderVersion = import.meta.env.VITE_CREATE_ORDER_VERSION
@@ -348,12 +381,12 @@ function submitOrder(){
         console.log('异步订单创建成功 订单编号',response.data)
         //开始定时轮训查询
         startPolling(response.data,Date.now());
-        // 设置一个5s后停止轮询的定时器
+        // 设置一个10s后停止轮询的定时器
         timeoutTimer.value = setTimeout(() => {
           if (pollingTimer.value) {
             stopPolling();
           }
-        }, fiveSecond);
+        }, tenSecond);
       }else{
         dialogShow();
       }
@@ -561,6 +594,33 @@ onBeforeUnmount(() => {
           flex-shrink: 0;
           flex-grow: 0;
           height: fit-content;
+        }
+
+        .seat-info {
+          position: relative;
+          display: flex;
+          flex-wrap: wrap;
+          margin-left: 43px;
+          margin-top: 10px;
+          font-size: 20px;
+          color: rgb(255, 255, 255);
+          
+          .seat-label {
+            margin-right: 10px;
+          }
+          
+          .seat-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            
+            .seat-item {
+              background: rgba(255, 255, 255, 0.2);
+              padding: 4px 10px;
+              border-radius: 4px;
+              font-size: 18px;
+            }
+          }
         }
 
       }

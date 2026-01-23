@@ -74,44 +74,44 @@ rules:
       - d_program_category
     shardingAlgorithms:
       databaseProgramModModel:
-        type: MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: ds_${id % 2}
       tableProgramModModel:
-        type: MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: d_program_${(id.intdiv(2)) % 2}
       databaseProgramGroupModModel:
-        type: MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: ds_${id % 2}
       tableProgramGroupModModel:
-        type: MOD
+        type: INLINE
         props:
-          sharding-count: 2    
+          algorithm-expression: d_program_group_${(id.intdiv(2)) % 2} 
       databaseProgramShowTimeModModel:
-        type: MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: ds_${program_id % 2}
       tableProgramShowTimeModModel:
-        type: MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: d_program_show_time_${(program_id.intdiv(2)) % 2}
       databaseSeatModModel:
-        type: MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: ds_${program_id % 2}
       tableSeatModModel:
-        type: MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: d_seat_${(program_id.intdiv(2)) % 2}
       databaseTicketCategoryModModel:
-        type: MOD
+        type: INLINE
         props:
-          sharding-count: 2
+          algorithm-expression: ds_${program_id % 2}
       tableTicketCategoryModModel:
-        type: MOD
+        type: INLINE
         props:
-          sharding-count: 2    
+          algorithm-expression: d_ticket_category_${(program_id.intdiv(2)) % 2}
 props:
   sql-show: true
