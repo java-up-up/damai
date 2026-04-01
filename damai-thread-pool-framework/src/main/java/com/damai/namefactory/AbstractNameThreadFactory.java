@@ -14,8 +14,10 @@ public abstract class AbstractNameThreadFactory implements ThreadFactory {
     private final ThreadGroup group;
     private final AtomicLong threadNum = new AtomicLong(1);
     private String namePrefix = "";
-
-
+    
+    /**
+     * 线程工厂命令
+     */
     public AbstractNameThreadFactory() {
         SecurityManager s = System.getSecurityManager();
         group = (s != null) ? s.getThreadGroup() :
