@@ -37,8 +37,12 @@ public class ProgramShowTimeRenewal extends AbstractApplicationPostConstructHand
     public void executeInit(final ConfigurableApplicationContext context) {
         Set<Long> programIdSet = programShowTimeService.renewal();
         if (!programIdSet.isEmpty()) {
-            businessEsHandle.deleteIndex(SpringUtil.getPrefixDistinctionName() + "-" +
-                    ProgramDocumentParamName.INDEX_NAME);
+            boolean result = businessEsHandle.checkIndex(SpringUtil.getPrefixDistinctionName() + "-" +
+                    ProgramDocumentParamName.INDEX_NAME, ProgramDocumentParamName.INDEX_TYPE);
+            if (result) {
+                businessEsHandle.deleteIndex(SpringUtil.getPrefixDistinctionName() + "-" +
+                        ProgramDocumentParamName.INDEX_NAME);
+            }
             for (Long programId : programIdSet) {
                 programService.delRedisData(programId);
                 programService.delLocalCache(programId);
