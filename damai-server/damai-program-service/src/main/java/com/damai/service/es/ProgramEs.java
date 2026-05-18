@@ -17,6 +17,7 @@ import com.damai.util.StringUtil;
 import com.damai.vo.ProgramHomeVo;
 import com.damai.vo.ProgramListVo;
 import com.github.pagehelper.PageInfo;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchAllQueryBuilder;
@@ -29,7 +30,6 @@ import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.ScriptSortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ import java.util.Objects;
 @Component
 public class ProgramEs {
     
-    @Autowired
+    @Resource
     private BusinessEsHandle businessEsHandle;
     
     public List<ProgramHomeVo> selectHomeList(ProgramListDto programListDto) {
