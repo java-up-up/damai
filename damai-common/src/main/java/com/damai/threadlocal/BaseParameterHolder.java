@@ -15,10 +15,7 @@ public class BaseParameterHolder {
     
     
     public static void setParameter(String name, String value) {
-        Map<String, String> map = THREAD_LOCAL_MAP.get();
-        if (map == null) {
-            map = new HashMap<>(64);
-        }
+        Map<String, String> map = getParameterMap();
         map.put(name, value);
         THREAD_LOCAL_MAP.set(map);
     }
@@ -32,10 +29,6 @@ public class BaseParameterHolder {
         if (map != null) {
             map.remove(name);
         }
-    }
-    
-    public static ThreadLocal<Map<String, String>> getThreadLocal() {
-        return THREAD_LOCAL_MAP;
     }
     
     public static Map<String, String> getParameterMap() {
