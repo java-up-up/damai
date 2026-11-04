@@ -25,12 +25,12 @@ import java.util.Map;
 @Slf4j
 public class MonitorServer extends AbstractStatusChangeNotifier {
     
-    private DingTalkMessage dingTalkMessage;
+    private final DingTalkMessage dingTalkMessage;
     
-    private Expression text = new SpelExpressionParser()
+    private final Expression text = new SpelExpressionParser()
             .parseExpression("#{instance.registration.name} (#{instance.id}) status changed from #{fromStatus} to #{toStatus}  #{instance.registration.healthUrl}", ParserContext.TEMPLATE_EXPRESSION);
     
-    private String[] ignoreStatusChanges = new String[]{"UNKNOWN:UP","DOWN:UP","OFFLINE:UP"};
+    private final String[] ignoreStatusChanges = new String[]{"UNKNOWN:UP","DOWN:UP","OFFLINE:UP"};
     
     public MonitorServer(DingTalkMessage dingTalkMessage, InstanceRepository repository) {
         super(repository);
@@ -40,8 +40,7 @@ public class MonitorServer extends AbstractStatusChangeNotifier {
     
     @Override
     protected boolean shouldNotify(InstanceEvent event, Instance instance) {
-        if (event instanceof InstanceStatusChangedEvent) {
-            InstanceStatusChangedEvent statusChange = (InstanceStatusChangedEvent)event;
+        if (event instanceof final InstanceStatusChangedEvent statusChange) {
             String from = this.getLastStatus(event.getInstance());
             String to = statusChange.getStatusInfo().getStatus();
             return Arrays.binarySearch(this.ignoreStatusChanges, from + ":" + to) < 0 && Arrays.binarySearch(this.ignoreStatusChanges, "*:" + to) < 0 && Arrays.binarySearch(this.ignoreStatusChanges, from + ":*") < 0;
