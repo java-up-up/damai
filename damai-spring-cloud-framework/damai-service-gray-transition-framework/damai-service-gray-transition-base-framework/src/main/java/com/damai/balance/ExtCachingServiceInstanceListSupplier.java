@@ -26,6 +26,9 @@ public class ExtCachingServiceInstanceListSupplier extends CachingServiceInstanc
         this.filterLoadBalance = filterLoadBalance;
     }
     
+    /**
+     * 对此方法进行负载均衡的过滤增强设计
+     * */
     @Override
     public Flux<List<ServiceInstance>> get() {
         Flux<List<ServiceInstance>> listFlux = super.get();

@@ -27,7 +27,6 @@ import org.springframework.cloud.client.discovery.ReactiveDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.reactive.ReactiveLoadBalancer;
 import org.springframework.cloud.loadbalancer.cache.LoadBalancerCacheManager;
 import org.springframework.cloud.loadbalancer.config.LoadBalancerZoneConfig;
-import org.springframework.cloud.loadbalancer.core.CachingServiceInstanceListSupplier;
 import org.springframework.cloud.loadbalancer.core.DiscoveryClientServiceInstanceListSupplier;
 import org.springframework.cloud.loadbalancer.core.HealthCheckServiceInstanceListSupplier;
 import org.springframework.cloud.loadbalancer.core.HintBasedServiceInstanceListSupplier;
@@ -306,11 +305,7 @@ public final class EnhanceServiceInstanceListSupplierBuilder {
 	}
 
 	/**
-	 * If {@link LoadBalancerCacheManager} is available in the context, adds a
-	 * {@link CachingServiceInstanceListSupplier} instance to the
-	 * {@link ServiceInstanceListSupplier} hierarchy to provide a caching mechanism for
-	 * service instances. Uses {@link ObjectProvider} to lazily resolve
-	 * {@link LoadBalancerCacheManager}.
+	 * 对此方法进行增强设计 {@link ExtCachingServiceInstanceListSupplier}.
 	 * @return the {@link EnhanceServiceInstanceListSupplierBuilder} object
 	 */
 	public EnhanceServiceInstanceListSupplierBuilder withCaching() {
